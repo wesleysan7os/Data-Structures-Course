@@ -1,0 +1,39 @@
+1)
+Override (sobreposição) ocorre quando as chamadas para dois métodos ou mais métodos são iguais, mas são implementados de modos diferentes;
+Overload (sobrecarga) ocorre quando dois ou mais métodos têm chamadas semelhantes, porém não idênticas. A implementação também pode semelhante. A chave da sobrecarga é poder alterar as entradas dos métodos, a depender da necessidade.
+
+2)
+Geralmente usa-se override com polimorfismo. Quando tipos diferentes são agrupados para atender uma necessidade específica, mas de modo diferente. A chamada seria a mesma, mas cada tipo iria providenciar a solução de modo diferente;
+
+3)
+Classes abstratas apenas definem um tipo, não definem comportamento (exceto se considerarmos que o construtor de um tipo é também um comportamento). As classes abstratas são requeridas quando não faz sentido que seja criado um objeto daquele tipo, mas que possuam sua referência.
+
+4)
+O uso de cast está relacionado à alteração do tipo do objeto. Essa alteração pode vir a ser necessária a depender do comportamento requerido para o objeto.
+O instanceof retorna um valor booleano que associa um objeto a um tipo. Se o objeto for deste tipo, por exemplo, então o valor True será retornado.
+
+5)
+Uma classe que implemente uma interface assume responsabilidade, diferente do caso do herdar de uma classe abstrata, que poderia ou fazer com que esta nova classe herdar sesus métodos ou tabém poderia obrigá-la a sobrescrevê-los. 
+
+6) 
+i)
+Os métodos: m4() da interface I2; os métodos m3(String x) e m2(double x) da classe A;
+
+ii) Apenas o método m1() da classe B.
+
+iii) Sim, pois a classe E não está, de nenhum modo, relacionada à interface I1. Se ela implementasse esta interface, não haveria erro de compilação.
+
+iv)
+I1 x = new D();
+x.m3(“5”);
+x.m2(2.0);
+E y = (E) x;
+I2 k = (E) x;
+
+v)
+False
+True
+True
+True
+True
+	
