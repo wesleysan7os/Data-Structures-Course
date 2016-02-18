@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import atv1.*;
 
-public class RepositorioProdutoArray {
+public class RepositorioProdutoArray implements RepositorioProdutos {
 
 	private ArrayList<Produto> produtos;
 	
@@ -23,6 +23,10 @@ public class RepositorioProdutoArray {
 		return -1;
 	}
 	
+	/* (non-Javadoc)
+	 * @see atv2.RepositorioProdutos#exist(int)
+	 */
+	@Override
 	public boolean exist(int codigo) {
 		if (procurarIndice(codigo) == -1) {
 			return false;
@@ -31,14 +35,26 @@ public class RepositorioProdutoArray {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see atv2.RepositorioProdutos#inserir(atv1.Produto)
+	 */
+	@Override
 	public void inserir(Produto produto) {
 		produtos.add(produto);
 	}
 	
+	/* (non-Javadoc)
+	 * @see atv2.RepositorioProdutos#atualizar(atv1.Produto)
+	 */
+	@Override
 	public void atualizar(Produto produto) {
 		// nao entendi o que fazer
 	}
 	
+	/* (non-Javadoc)
+	 * @see atv2.RepositorioProdutos#remover(int)
+	 */
+	@Override
 	public void remover(int codigo) throws Exception {
 		int i = procurarIndice(codigo);
 		if( i != -1 ){
@@ -48,6 +64,10 @@ public class RepositorioProdutoArray {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see atv2.RepositorioProdutos#procurar(int)
+	 */
+	@Override
 	public Produto procurar(int codigo) throws Exception {
 		int i = procurarIndice(codigo);
 		if( i != -1 ){
