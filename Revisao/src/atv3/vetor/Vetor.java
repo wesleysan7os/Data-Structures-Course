@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
  * @author Adalberto
  *
  */
-public class Vetor<T> {
+public class Vetor<T> implements Comparator<T> {
 	
 	//O array interno onde os objetos manipulados são guardados
 	private T[] arrayInterno;
@@ -62,14 +62,14 @@ public class Vetor<T> {
 	public T remover(int i){
 		
 		T o = this.arrayInterno[i];
-		T[] helper = (T[]) new Object[this.tamanho - 1];
+		T[] helper = (T[]) new Object[this.tamanho];
 		this.tamanho = this.tamanho - 1;
 		
-		for (int j = 0; j < i-1 ; j++) {
+		for (int j = 0; j < i ; j++) {
 			helper[j] = this.arrayInterno[j];
 		}
 		
-		for (int j = i; j < helper.length; j++) {
+		for (int j = i; j < this.tamanho; j++) {
 			helper[j] = this.arrayInterno[j+1];
 		}
 		
@@ -95,13 +95,38 @@ public class Vetor<T> {
 	
 	//Diz se o vetor está vazio
 	public boolean isVazio(){
-		return false;
+		
+		if (this.arrayInterno[0] == null) {
+			return true;
+		} else {
+			return false;
+		}	
 	}
 	
 	//Diz se o vetor está cheio
-	public boolean isCheio(){
-		return false;
+	public boolean isCheio() {
+		if (this.arrayInterno[ arrayInterno.length - 1 ] != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		Vetor v = new Vetor(Integer.class, 2);
+		if (v.isVazio() == true) { System.out.println("Esta vazio"); }
+		v.inserir(1);
+		v.inserir(2);
+		if (v.isCheio() == true) { System.out.println("Esta cheio"); }
+		v.remover(0); // remove 1
+		v.remover(0); // remove 2
+		if (v.isVazio() == true) { System.out.println("Esta vazio"); }
 	}
 
+	@Override
+	public int compare(T o1, T o2) {
+		return (o1.compareTo(o2);
+	}
 	
 }
