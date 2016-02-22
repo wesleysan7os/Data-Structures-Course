@@ -1,5 +1,6 @@
 package atv3.vetor;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.lang.reflect.Array;
 
@@ -8,7 +9,8 @@ import java.lang.reflect.Array;
  * @author Adalberto
  *
  */
-public class Vetor<T> implements Comparator<T> {
+
+public class Vetor<T extends Comparable> {
 	
 	//O array interno onde os objetos manipulados são guardados
 	private T[] arrayInterno;
@@ -28,8 +30,9 @@ public class Vetor<T> implements Comparator<T> {
 		super();
 		this.tamanho = tamanho;
 		this.indice = 0;
-		this.arrayInterno = (T[]) new Object[tamanho];
-
+		this.arrayInterno = (T[]) new Comparable[tamanho];
+		
+		//this.arrayInterno = (T[]) new Object[tamanho];
 		// Outro modo de instanciar a array genérica
 		// @SuppressWarnings("unchecked")
         //final T[] array = (T[]) Array.newInstance(c, tamanho);
@@ -124,9 +127,24 @@ public class Vetor<T> implements Comparator<T> {
 		if (v.isVazio() == true) { System.out.println("Esta vazio"); }
 	}
 
-	@Override
-	public int compare(T o1, T o2) {
-		return (o1.compareTo(o2);
+	public T maximo() {
+		T max = this.arrayInterno[0];
+		for (T t : arrayInterno) {
+			if (t.compareTo(max) == 1) {
+				max = t;
+			}
+		}
+		return max;
+	}
+	
+	public T minimo() {
+		T min = this.arrayInterno[0];
+		for (T t : arrayInterno) {
+			if (t.compareTo(min) == 1) {
+				min = t;
+			}
+		}
+		return min;
 	}
 	
 }
