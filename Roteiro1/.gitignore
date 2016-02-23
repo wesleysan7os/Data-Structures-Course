@@ -1,4 +1,7 @@
-/
+*.metadatas
+*.classpath
+*.settings/
+*.project
 /RemoteSystemsTempFiles/
 *.recommenders/
 /.recommenders/
