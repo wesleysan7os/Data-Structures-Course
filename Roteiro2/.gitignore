@@ -1,0 +1,13 @@
+*.metadatas
+*.classpath
+*.settings/
+*.project
+/RemoteSystemsTempFiles/
+*.recommenders/
+/.recommenders/
+*.zip
+*.jar
+/target/
+/bin/
+/RemoteSystemsTempFiles/
+

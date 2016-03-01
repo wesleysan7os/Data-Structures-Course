@@ -24,11 +24,10 @@ public class BidirectionalSelectionSort<T extends Comparable<T>> extends Abstrac
 		while(rightIndex >= leftIndex) {
 			int min = leftIndex;
 			int max = rightIndex;
-			
 			for (int i = leftIndex; i <= rightIndex; i++) {
 				if ( array[i].compareTo(array[min]) == - 1 ) {
 					min = i;
-				}
+				}				
 			}
 			
 			sorting.Util.swap(array, leftIndex, min);
