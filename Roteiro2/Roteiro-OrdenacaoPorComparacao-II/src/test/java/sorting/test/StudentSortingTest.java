@@ -36,9 +36,9 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		//TODO O aluno deve instanciar sua implementação abaixo ao invés de null 
-		this.implementation = new QuickSortMedianOfThree<Integer>();
-		//Assert.fail("Implementation not provided");
+
+		this.implementation = new QuickSort<Integer>();
+	
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){

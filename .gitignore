@@ -4,6 +4,6 @@
 /.recommenders/
 *.zip
 *.jar
-/target/
+*/target/
 /bin/
 /RemoteSystemsTempFiles/

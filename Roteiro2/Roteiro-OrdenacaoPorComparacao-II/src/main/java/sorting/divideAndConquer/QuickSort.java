@@ -34,7 +34,7 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	}
 
 	private int partition(T[] array, int leftIndex, int rightIndex) {
-		
+				
 		int i = leftIndex;
 		int storeIndex = rightIndex - 1;
 		T pivot = array[rightIndex];
@@ -50,15 +50,21 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 			}
 		}
 			Util.swap(array, i, rightIndex);
-			return i; 	
+			
+			for (T t : array) {				
+				System.out.println(t);
+			}
+			
+			return i;
+			
 	}
 	
 	private void trocaRandom(T[] array, int leftIndex, int rightIndex) {
 		Random gerador = new Random();
 		int randomIndex = leftIndex - 1;
 		do {			
-			randomIndex = gerador.nextInt(rightIndex) + 1;
-		} while (randomIndex < leftIndex);
+			randomIndex = gerador.nextInt(rightIndex);
+		} while (randomIndex <= leftIndex);
 		
 		Util.swap(array, 0, randomIndex);
 	}

@@ -33,7 +33,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 			countArray[ array[i] ] = countArray[ array[i] ] + 1;
 		}
 		
-		for (int i = 1; i < countArray.length; i++) {
+		for (int i = 1; i <= array[maxValueIndex]; i++) {
 			countArray[i] = countArray[i] + countArray[i-1];
 		}
 		
