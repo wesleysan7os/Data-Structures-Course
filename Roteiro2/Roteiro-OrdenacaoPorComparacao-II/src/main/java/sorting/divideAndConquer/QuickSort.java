@@ -15,17 +15,18 @@ import sorting.Util;
  */
 public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
-	public boolean statusRandom= false;
+	// public boolean statusRandom= false;
 	
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 
 		if (leftIndex < rightIndex) {
+		
 			
-			if (this.statusRandom == false) {
+			/*if (this.statusRandom == false) {
 				trocaRandom(array, leftIndex, rightIndex);
 				this.statusRandom = true;
-			}
+			}*/
 			
 			int pivotIndex = partition(array, leftIndex, rightIndex);
 			sort(array, leftIndex, pivotIndex - 1);
@@ -51,14 +52,11 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		}
 			Util.swap(array, i, rightIndex);
 			
-			for (T t : array) {				
-				System.out.println(t);
-			}
-			
 			return i;
 			
 	}
 	
+	/*
 	private void trocaRandom(T[] array, int leftIndex, int rightIndex) {
 		Random gerador = new Random();
 		int randomIndex = leftIndex - 1;
@@ -68,5 +66,5 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		
 		Util.swap(array, 0, randomIndex);
 	}
-		
+	*/
 }
