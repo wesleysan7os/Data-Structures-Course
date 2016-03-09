@@ -8,12 +8,11 @@ import sorting.Util;
 public class RandomizedQuick<T extends Comparable<T>> extends AbstractSorting<T>{
 	
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-
-		if (leftIndex < rightIndex) {
+		if (rightIndex > leftIndex) {
 			int pivotIndex = randomizedPartition(array, leftIndex, rightIndex);
-			sort(array, leftIndex, pivotIndex - 1);
+			sort(array, leftIndex, pivotIndex-1);
 			sort(array, pivotIndex+1, rightIndex);
-		}	
+		}
 	}
 	
 	private int randomizedPartition(T[] array, int leftIndex, int rightIndex) {

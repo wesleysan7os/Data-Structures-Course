@@ -14,10 +14,10 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	@Override
 	public void sort(T[] array,int leftIndex, int rightIndex) {
 		if (leftIndex < rightIndex) {
-			int med = (leftIndex + rightIndex) / 2;
-			sort(array, leftIndex, med);
-			sort(array, med+1, rightIndex);
-			merge(array, leftIndex, med, rightIndex);
+			int mid = (leftIndex + rightIndex) / 2;
+			sort(array, leftIndex, mid);
+			sort(array, mid+1, rightIndex);
+			merge(array, leftIndex, mid, rightIndex);
 		}
 	}
 	

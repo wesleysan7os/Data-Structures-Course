@@ -15,56 +15,36 @@ import sorting.Util;
  */
 public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
-	// public boolean statusRandom= false;
 	
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-
-		if (leftIndex < rightIndex) {
 		
-			
-			/*if (this.statusRandom == false) {
-				trocaRandom(array, leftIndex, rightIndex);
-				this.statusRandom = true;
-			}*/
-			
+		if (rightIndex > leftIndex) {
 			int pivotIndex = partition(array, leftIndex, rightIndex);
-			sort(array, leftIndex, pivotIndex - 1);
+			sort(array, leftIndex, pivotIndex-1);
 			sort(array, pivotIndex+1, rightIndex);
-		}	
+		}
+
 	}
 
 	private int partition(T[] array, int leftIndex, int rightIndex) {
-				
-		int i = leftIndex;
-		int storeIndex = rightIndex - 1;
-		T pivot = array[rightIndex];
 		
-		while(i <= storeIndex) {
+		int i = leftIndex;
+		int j = leftIndex + 1;
+		int p = leftIndex;
+		
+		while (j <= rightIndex) {
 			
-			if(array[i].compareTo(pivot) <= 0) {
+			if (array[j].compareTo(array[p]) == -1) {
 				i = i + 1;
-			} else if (array[storeIndex].compareTo(pivot) >= 0) {
-				storeIndex  = storeIndex - 1;
-			} else {
-				Util.swap(array, i, storeIndex);
+				Util.swap(array, i, j);
 			}
+			 j = j + 1;
 		}
-			Util.swap(array, i, rightIndex);
-			
-			return i;
-			
+		
+		Util.swap(array, i, p);
+		return i;
+		
 	}
 	
-	/*
-	private void trocaRandom(T[] array, int leftIndex, int rightIndex) {
-		Random gerador = new Random();
-		int randomIndex = leftIndex - 1;
-		do {			
-			randomIndex = gerador.nextInt(rightIndex);
-		} while (randomIndex <= leftIndex);
-		
-		Util.swap(array, 0, randomIndex);
-	}
-	*/
 }

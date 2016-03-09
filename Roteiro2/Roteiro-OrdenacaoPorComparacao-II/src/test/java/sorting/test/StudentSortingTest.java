@@ -38,7 +38,7 @@ public class StudentSortingTest {
 	 */
 	private void getImplementation() {
 
-		this.implementation = new RandomizedQuick<Integer>();
+		this.implementation = new QuickSortMedianOfThree<Integer>();
 	
 	}
 
@@ -100,4 +100,34 @@ public class StudentSortingTest {
 	 * PARA TESTAR A ORDENACAO EM UM PEDAÇO DO ARRAY. DICA: PROCUREM SEGUIR A ESTRUTURA DOS
 	 * MÉTODOS DE TESTE ACIMA DESCRITOS, ORDENANDO APENAS UMA PARTE DO ARRAY.
 	 */
+	
+	public void genericTestWithBounds(Integer[] array) {
+		int leftIndex = (int) (array.length / 5);  
+		int rightIndex = (int) (array.length * 4/5);
+		Integer[] copy1 = Arrays.copyOfRange(array, leftIndex, rightIndex+1);
+		implementation.sort(array, leftIndex, rightIndex);
+		Integer[] copy2 = Arrays.copyOfRange(array, leftIndex, rightIndex+1); //copia dos elementos ordenado do array
+		Arrays.sort(copy1);
+		Assert.assertArrayEquals(copy1, copy2);		
+	}
+	@Test
+	public void testSort06() {
+		genericTestWithBounds(vetorTamPar);
+	}
+	
+	@Test
+	public void testSort07() {
+		genericTestWithBounds(vetorTamImpar);
+	}
+	
+	@Test
+	public void testSort09() {
+		genericTestWithBounds(vetorValoresIguais);
+	}
+	
+	@Test
+	public void testSort10() {
+		genericTestWithBounds(vetorValoresRepetidos);
+	}
+	
 }
