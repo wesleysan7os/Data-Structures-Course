@@ -10,19 +10,17 @@ public class RandomizedQuick<T extends Comparable<T>> extends AbstractSorting<T>
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 
 		if (leftIndex < rightIndex) {
-			int pivotIndex = partition(array, leftIndex, rightIndex);
+			int pivotIndex = randomizedPartition(array, leftIndex, rightIndex);
 			sort(array, leftIndex, pivotIndex - 1);
 			sort(array, pivotIndex+1, rightIndex);
 		}	
 	}
 	
-	private void randomizedPartition(T[] array, int leftIndex, int rightIndex) {
+	private int randomizedPartition(T[] array, int leftIndex, int rightIndex) {
 		Random gerador = new Random();
-		int randomIndex = rightIndex - leftIndex - 1;
-		randomIndex = randomIndex  + gerador.nextInt(rightIndex);	
-		Util.swap(array, 0, randomIndex);
-		
-		partition(array, leftIndex, rightIndex);
+		int randomIndex = leftIndex + gerador.nextInt(rightIndex - leftIndex + 1);
+		Util.swap(array, leftIndex, randomIndex);
+		return partition(array, leftIndex, rightIndex);
 	}
 
 	private int partition(T[] array, int leftIndex, int rightIndex) {
@@ -41,10 +39,8 @@ public class RandomizedQuick<T extends Comparable<T>> extends AbstractSorting<T>
 				Util.swap(array, i, storeIndex);
 			}
 		}
-			Util.swap(array, i, rightIndex);
-						
+			Util.swap(array, i, rightIndex);	
 			return i;
-			
 	}
 			
 }

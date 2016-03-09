@@ -38,7 +38,7 @@ public class StudentSortingTest {
 	 */
 	private void getImplementation() {
 
-		this.implementation = new QuickSort<Integer>();
+		this.implementation = new RandomizedQuick<Integer>();
 	
 	}
 
