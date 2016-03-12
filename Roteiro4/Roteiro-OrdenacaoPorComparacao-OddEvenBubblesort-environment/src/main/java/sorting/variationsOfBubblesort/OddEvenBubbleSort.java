@@ -26,30 +26,31 @@ public class OddEvenBubbleSort<T extends Comparable<T>> extends AbstractSorting<
 	private void bubble(T[] array,int leftIndex, int rightIndex) {
 
 		boolean sorted = false;
-		
+				
 		while(!sorted) {
 			
 			sorted = true;
 			
-			for (int j = leftIndex + 1; j <= rightIndex - 1 ; j = j + 2) {
-				
-				if(j <= rightIndex - 2) {
-					// Compara Impares
-					if(array[j].compareTo(array[j+2]) == 1) {
-						Util.swap(array, j, j+2);
+			for (int j = leftIndex + 2; j <= rightIndex; j = j + 1) {	
+		
+				// Compara Pares
+				if(j % 2 == 0) {
+					
+					if(array[j-2].compareTo(array[j]) == 1) {
+						Util.swap(array, j, j-2);
 						sorted = false;
 					}
-				}
-				
-				// Compara Pares
-				if(array[j-1].compareTo(array[j+1]) == 1) {
-					Util.swap(array, j-1, j+1);
-					sorted = false;
-				}
-				
-			} // fecha  for	
-		} 
-		
+					
+				} else {
+					
+					if(array[j-2].compareTo(array[j]) == 1) {
+						Util.swap(array, j, j-2);
+						sorted = false;
+					}
+					
+				} // fecha bloco if
+			} 
+		} //fecha while sorted
 	}
 	
 	private void merge(T[] array,int leftIndex, int rightIndex) {

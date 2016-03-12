@@ -1,6 +1,9 @@
 package sorting.linearSorting;
 
+import java.util.Arrays;
+
 import sorting.AbstractSorting;
+import sorting.Util;
 
 /**
  * Classe que implementa a estratégia de Counting Sort vista em sala. Procure evitar desperdicio de 
@@ -13,7 +16,6 @@ public class CountingSort extends AbstractSorting<Integer> {
 	public CountingSort() {
 		
 	}
-	
 	
 	@Override
 	public void sort(Integer[] array,int leftIndex, int rightIndex) {

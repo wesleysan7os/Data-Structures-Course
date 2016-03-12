@@ -98,4 +98,32 @@ public class StudentSortingTest {
 	 * MÉTODOS DE TESTE ACIMA DESCRITOS, ORDENANDO APENAS UMA PARTE DO ARRAY.
 	 */
 	
+	public void genericTestWithBounds(Integer[] array) {
+		int leftIndex = 1;  
+		int rightIndex = (int) (array.length * (array.length-2) / array.length );
+		Integer[] copy1 = Arrays.copyOfRange(array, leftIndex, rightIndex);
+		Integer[] copy2 = Arrays.copyOfRange(array, leftIndex, rightIndex); //copia dos elementos ordenado do array
+		implementation.sort(copy1, 0, copy1.length - 1);
+		Arrays.sort(copy2);
+		Assert.assertArrayEquals(copy1, copy2);		
+	}
+	@Test
+	public void testSort06() {
+		genericTestWithBounds(vetorTamPar);
+	}
+	
+	@Test
+	public void testSort07() {
+		genericTestWithBounds(vetorTamImpar);
+	}
+	
+	@Test
+	public void testSort09() {
+		genericTestWithBounds(vetorValoresIguais);
+	}
+	
+	@Test
+	public void testSort10() {
+		genericTestWithBounds(vetorValoresRepetidos);
+	}
 }
