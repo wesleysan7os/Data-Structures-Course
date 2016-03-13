@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import sorting.AbstractSorting;
 import sorting.simpleSorting.BubbleSort;
+import sorting.variationsOfBubbleSort.BidirectionalBubbleSort;
+import sorting.variationsOfBubbleSort.OddEvenTwoBubbleSort;
 import sorting.variationsOfSelectionsort.BidirectionalSelectionSort;
 
 public class StudentSortingTest {
@@ -36,9 +38,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		//TODO O aluno deve instanciar sua implementação abaixo ao invés de null 
-		this.implementation = new BidirectionalSelectionSort<Integer>();
-		//Assert.fail("Implementation not provided");
+		this.implementation = new OddEvenTwoBubbleSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){
