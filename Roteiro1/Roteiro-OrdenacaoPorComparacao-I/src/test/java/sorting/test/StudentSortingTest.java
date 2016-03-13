@@ -10,6 +10,7 @@ import org.junit.Test;
 import sorting.AbstractSorting;
 import sorting.simpleSorting.BubbleSort;
 import sorting.variationsOfBubbleSort.BidirectionalBubbleSort;
+import sorting.variationsOfBubbleSort.OddEvenOneBubbleSort;
 import sorting.variationsOfBubbleSort.OddEvenTwoBubbleSort;
 import sorting.variationsOfSelectionsort.BidirectionalSelectionSort;
 
@@ -38,7 +39,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new OddEvenTwoBubbleSort<Integer>();
+		this.implementation = new OddEvenOneBubbleSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){
