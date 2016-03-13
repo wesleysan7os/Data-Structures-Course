@@ -103,7 +103,7 @@ public class StudentSortingTest {
 	 */
 	public void genericTestWithBounds(Integer[] array) {
 		int leftIndex = 1;  
-		int rightIndex = (int) array.length - 2;
+		int rightIndex = (int) array.length-2;
 		Integer[] copy1 = Arrays.copyOfRange(array, leftIndex, rightIndex);
 		Integer[] copy2 = Arrays.copyOfRange(array, leftIndex, rightIndex); //copia dos elementos ordenado do array
 		implementation.sort(copy1, 0, copy1.length - 1);
