@@ -12,6 +12,7 @@ import sorting.simpleSorting.BubbleSort;
 import sorting.variationsOfBubbleSort.BidirectionalBubbleSort;
 import sorting.variationsOfBubbleSort.OddEvenOneBubbleSort;
 import sorting.variationsOfBubbleSort.OddEvenTwoBubbleSort;
+import sorting.variationsOfInsertionSort.ShellSort;
 import sorting.variationsOfSelectionsort.BidirectionalSelectionSort;
 
 public class StudentSortingTest {
@@ -39,7 +40,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new OddEvenOneBubbleSort<Integer>();
+		this.implementation = new ShellSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){
@@ -100,4 +101,34 @@ public class StudentSortingTest {
 	 * PARA TESTAR A ORDENACAO EM UM PEDAÇO DO ARRAY. DICA: PROCUREM SEGUIR A ESTRUTURA DOS
 	 * MÉTODOS DE TESTE ACIMA DESCRITOS, ORDENANDO APENAS UMA PARTE DO ARRAY.
 	 */
+	public void genericTestWithBounds(Integer[] array) {
+		int leftIndex = 1;  
+		int rightIndex = (int) array.length - 2;
+		Integer[] copy1 = Arrays.copyOfRange(array, leftIndex, rightIndex);
+		Integer[] copy2 = Arrays.copyOfRange(array, leftIndex, rightIndex); //copia dos elementos ordenado do array
+		implementation.sort(copy1, 0, copy1.length - 1);
+		Arrays.sort(copy2);
+		Assert.assertArrayEquals(copy1, copy2);	
+		
+	}
+	@Test
+	public void testSort06() {
+		genericTestWithBounds(vetorTamPar);
+	}
+	
+	@Test
+	public void testSort07() {
+		genericTestWithBounds(vetorTamImpar);
+	}
+	
+	@Test
+	public void testSort09() {
+		genericTestWithBounds(vetorValoresIguais);
+	}
+	
+	@Test
+	public void testSort10() {
+		genericTestWithBounds(vetorValoresRepetidos);
+	}
+	
 }
