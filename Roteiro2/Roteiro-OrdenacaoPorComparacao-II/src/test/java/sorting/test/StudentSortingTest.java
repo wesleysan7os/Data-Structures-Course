@@ -10,7 +10,8 @@ import sorting.AbstractSorting;
 import sorting.divideAndConquer.MergeSort;
 import sorting.divideAndConquer.QuickSort;
 import sorting.divideAndConquer.RandomizedQuick;
-import sorting.divideAndConquer.quicksort3.QuickSortMedianOfThree;
+import sorting.variations.HybridMergeSort;
+import sorting.variations.QuickSortMedianOfThree;
 
 public class StudentSortingTest {
 
@@ -37,9 +38,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-
-		this.implementation = new RandomizedQuick<Integer>();
-	
+		this.implementation = new HybridMergeSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){

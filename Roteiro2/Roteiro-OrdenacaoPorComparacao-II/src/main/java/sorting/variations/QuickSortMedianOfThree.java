@@ -1,4 +1,4 @@
-package sorting.divideAndConquer.quicksort3;
+package sorting.variations;
 
 import sorting.AbstractSorting;
 import sorting.Util;
