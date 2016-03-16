@@ -22,10 +22,10 @@ public class QuickSortMedianOfThree<T extends Comparable<T>> extends AbstractSor
 
 		if (leftIndex < rightIndex) {
 			
-			medianaDeTres(array, leftIndex, rightIndex);
+			medianOfThree(array, leftIndex, rightIndex);
 			changePivot(array, leftIndex, rightIndex);
 			
-			int pivotIndex = partition(array, leftIndex + 1, rightIndex - 1);
+			int pivotIndex = partition(array, leftIndex, rightIndex);
 			
 			sort(array, leftIndex, pivotIndex - 1);
 			sort(array, pivotIndex + 1, rightIndex);
@@ -33,29 +33,30 @@ public class QuickSortMedianOfThree<T extends Comparable<T>> extends AbstractSor
 		}
 	}
 	
-	public void medianaDeTres(T[] array, int leftIndex, int rightIndex){
+	public void medianOfThree(T[] array, int leftIndex, int rightIndex){
 		
-		int middle = leftIndex + (rightIndex - leftIndex) / 2;
-		int minIndex = leftIndex;
+		int shortter = leftIndex;
+		int mid = leftIndex + (rightIndex - leftIndex) / 2;
+		int bigger = rightIndex;
 		
-		if (array[middle].compareTo(array[minIndex]) == -1) {
-			minIndex = middle;
+		if (array[mid].compareTo(array[shortter]) == -1) {
+			Util.swap(array, shortter, mid);
 		}
-		if (array[rightIndex].compareTo(array[minIndex]) == -1) {
-			minIndex = rightIndex;	
+		if (array[bigger].compareTo(array[shortter]) == -1) {
+			Util.swap(array, shortter, bigger);
+		}
+		if (array[bigger].compareTo(array[mid]) == -1) {
+			Util.swap(array, bigger, mid);
 		}
 		
-		Util.swap(array, leftIndex, minIndex);
-		
-		if (array[rightIndex].compareTo(array[middle]) == -1) {
-			Util.swap(array, rightIndex, middle);
-		}
-				
 	}
 	
 	public void changePivot(T[] array, int leftIndex, int rightIndex) {
 		int pivotIndex = leftIndex + (rightIndex - leftIndex) / 2;
-		Util.swap(array, pivotIndex, rightIndex - 1);
+		if (rightIndex - leftIndex >= 1) {
+			Util.swap(array, pivotIndex, rightIndex - 1);
+		}
+		
 	}
 	
 	private int partition(T[] array, int leftIndex, int rightIndex) {
@@ -74,8 +75,7 @@ public class QuickSortMedianOfThree<T extends Comparable<T>> extends AbstractSor
 		}
 		
 		Util.swap(array, i, p);
-		return i; 		
-	
+		return i; 				
 	}
 	
 }

@@ -22,16 +22,37 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T>{
 		
 		for (int i = leftIndex; i <= rightIndex; i++) {
 			
-			int min = leftIndex;
+			int min = i;
 			
-			for (int j = min + 1; j <= rightIndex; j++) {
-				if ( array[min].compareTo(array[j]) == -1) {
+			for (int j = i + 1; j <= rightIndex; j++) {
+				if ( array[j].compareTo(array[min]) == -1) {
 					min = j;
-				}
-				
-			Util.swap(array, min, j);
-				
+				}				
 			} // fecha 2 for
+			
+			Util.swap(array, min, i);
 		}
 	} // fecha método
+	
 }
+
+
+/* ANOTHER WAY TO ITERATE OVER ARRAY AND SORT IT
+ * 
+ * 		for (int i = leftIndex; i <= rightIndex; i++) {
+ *			
+ *			int min = leftIndex;
+ *			
+ *			for (int j = min + 1; j <= rightIndex; j++) {
+ *				if ( array[min].compareTo(array[j]) == -1) {
+ *					min = j;
+ *				}
+ *				
+ *			Util.swap(array, min, j);
+ *				
+ *			} // fecha 2 for
+ *		}
+ * 
+*/
+
+

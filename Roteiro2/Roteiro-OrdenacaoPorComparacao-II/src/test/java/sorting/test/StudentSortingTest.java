@@ -38,7 +38,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new HybridMergeSort<Integer>();
+		this.implementation = new QuickSortMedianOfThree<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){

@@ -9,6 +9,7 @@ public class RadixSort extends AbstractSorting<Integer> {
 
 	public static final int MAX_LEN = 10;
 	Integer[] sorting;
+	Integer[] counting;
 	
 	public RadixSort() {
 		this.sorting = new Integer[MAX_LEN];
@@ -19,22 +20,22 @@ public class RadixSort extends AbstractSorting<Integer> {
 		
 		if (array.length > 0) {
 			
-			Integer maxValue = getMaxValue(array, leftIndex, rightIndex);
-			int lenMaxValue = maxValue.toString().toCharArray().length;
+			Integer lenMax = getMaxValue(array, leftIndex, rightIndex).toString().toCharArray().length;
 			int exp = 1;
 			
-			for (int v = 0; v < lenMaxValue; v++) {
+			for (int v = 0; v < lenMax; v++) {
 				countingSort(array, leftIndex, rightIndex, exp);
 				exp = exp*10;
 			}
 	
-		} // enf if array.len >= 0
+		} // end if array.len >= 0
 		
 	}
 
 	private void countingSort(Integer[] array, int leftIndex, int rightIndex, int exp) {
 
-		Integer[] counting = new Integer[MAX_LEN];
+		this.counting = new Integer[MAX_LEN];
+		resetArray(counting);
 		
 		for (int i = 0; i < counting.length; i++) {
 			counting[i] = 0;
@@ -49,7 +50,7 @@ public class RadixSort extends AbstractSorting<Integer> {
 			counting[i] = counting[i] + counting[i-1];
 		}
 		
-		for (int i = rightIndex; i >= 0; i--) {
+		for (int i = rightIndex; i >= leftIndex; i--) {
 			int key = (array[i] / exp) % 10;
 			this.sorting[--counting[key]] = array[i];
 		}
@@ -60,7 +61,7 @@ public class RadixSort extends AbstractSorting<Integer> {
 		
 	}
 	
-	private int getMaxValue(Integer[] array, int leftIndex, int rightIndex) {
+	private Integer getMaxValue(Integer[] array, int leftIndex, int rightIndex) {
 		int max = array[leftIndex];
 		for (int i = leftIndex+1; i <= rightIndex; i++) {
 			if (array[i] > max){
@@ -69,5 +70,12 @@ public class RadixSort extends AbstractSorting<Integer> {
 		}
 		return max;
 	}
+	
+	public void resetArray(Integer[] array) {
+		for (int i = 0; i < MAX_LEN; i++) {
+			array[i] = 0;
+		}
+	}
+	
 
 }
