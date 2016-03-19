@@ -109,6 +109,7 @@ public class StudentSortingTest {
 		Arrays.sort(copy1);
 		Assert.assertArrayEquals(copy1, copy2);		
 	}
+	
 	@Test
 	public void testSort06() {
 		genericTestWithBounds(vetorTamPar);

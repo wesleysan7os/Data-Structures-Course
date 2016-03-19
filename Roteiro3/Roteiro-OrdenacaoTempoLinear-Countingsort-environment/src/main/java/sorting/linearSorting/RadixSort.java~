@@ -18,7 +18,7 @@ public class RadixSort extends AbstractSorting<Integer> {
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
 		
-		if (array != null && array.lenght != 0) {
+		if (array.length > 0) {
 			
 			Integer lenMax = getMaxValue(array, leftIndex, rightIndex).toString().toCharArray().length;
 			int exp = 1;

@@ -2,6 +2,7 @@ package sorting.test;
 
 import java.text.Bidi;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -102,34 +103,46 @@ public class StudentSortingTest {
 	 * PARA TESTAR A ORDENACAO EM UM PEDAÇO DO ARRAY. DICA: PROCUREM SEGUIR A ESTRUTURA DOS
 	 * MÉTODOS DE TESTE ACIMA DESCRITOS, ORDENANDO APENAS UMA PARTE DO ARRAY.
 	 */
-	public void genericTestWithBounds(Integer[] array) {
-		int leftIndex = 1;  
-		int rightIndex = (int) array.length-2;
-		Integer[] copy1 = Arrays.copyOfRange(array, leftIndex, rightIndex);
-		Integer[] copy2 = Arrays.copyOfRange(array, leftIndex, rightIndex); //copia dos elementos ordenado dos array
-		implementation.sort(copy1, 0, copy1.length - 1);
-		Arrays.sort(copy2);
-		Assert.assertArrayEquals(copy1, copy2);	
+
+	@Test
+	public void studentTest() {
 		
+		// GENERATE UNSORTED ARRAY WITH RANDOM NUMBERS
+		Random generate = new Random();
+		Integer[] array = new Integer[1000];
+		for (int i = 0; i < 1000; i++) {
+			int random = generate.nextInt(1000);
+			array[i] = random;
+		}
+		
+		// TEST FOR RANDOM BOUNDS 
+		for (int i = 0; i < 1000; i++) {
+			int left = generate.nextInt(1000);
+			int right = generate.nextInt(1000);
+			
+			if (left < right)
+				testBetweenBounds(array, left, right);
+		}
+
 	}
-	@Test
-	public void testSort06() {
-		genericTestWithBounds(vetorTamPar);
+	
+	public void testBetweenBounds(Integer[] array, int left, int right) {
+		Integer[] copy1 = Arrays.copyOfRange(array, left, right);
+		Integer[] copy2 = Arrays.copyOfRange(array, left, right);
+		
+		implementation.sort(copy1);
+		Arrays.sort(copy2);
+		Assert.assertArrayEquals(copy1, copy2);
 	}
 	
 	@Test
-	public void testSort07() {
-		genericTestWithBounds(vetorTamImpar);
-	}
-	
-	@Test
-	public void testSort09() {
-		genericTestWithBounds(vetorValoresIguais);
-	}
-	
-	@Test
-	public void testSort10() {
-		genericTestWithBounds(vetorValoresRepetidos);
+	public void testUnitaryArray() {
+		Integer[] array = new Integer[] {1};
+		Integer[] copy = Arrays.copyOf(array, 1);
+		
+		implementation.sort(array);
+		Arrays.sort(copy);
+		Assert.assertArrayEquals(array, copy);
 	}
 	
 }
