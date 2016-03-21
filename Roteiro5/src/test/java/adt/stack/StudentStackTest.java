@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import adt.queue.CircularQueue;
+
 public class StudentStackTest {
 
 	public Stack<Integer> stack1;
@@ -92,7 +94,7 @@ public class StudentStackTest {
 			
 			stack1.pop();
 			
-		} catch (StackException e) {
+		} catch (Exception e) {
 			Assert.assertEquals("Stack is empty", e.getMessage());
 		}
 	}
@@ -100,6 +102,22 @@ public class StudentStackTest {
 	@Test(expected=StackUnderflowException.class)
 	public void testPopComErro() throws StackUnderflowException {
 		stack3.pop();
+	}
+	
+	public void testIllegalSizes() {
+		try{
+			new StackImpl<Integer>(0);
+			Assert.fail();
+		}catch(Exception e){
+			Assert.assertEquals("Size must be bigger than 0.", e.getMessage());
+		}
+		
+		try{
+			new StackImpl<Integer>(-1);
+			Assert.fail();
+		}catch(Exception e){
+			Assert.assertEquals("Size must be bigger than 0.", e.getMessage());
+		}
 	}
 
 }

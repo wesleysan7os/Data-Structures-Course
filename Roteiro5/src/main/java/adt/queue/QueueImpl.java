@@ -10,6 +10,9 @@ public class QueueImpl<T> implements Queue<T> {
 	
 	@SuppressWarnings("unchecked")
 	public QueueImpl(int size) {
+		if (size <= 0)
+			throw new IllegalArgumentException("Size must be bigger than 0.");
+		
 		array = (T[])new Object[size];
 		tail = -1;
 	}
@@ -37,10 +40,9 @@ public class QueueImpl<T> implements Queue<T> {
 			array[i] = array[i + 1];
 		}
 
-		tail--;		// as elements were shifted by one to left, tail must also shift;
+		tail--;		// as elements were shifted by one to left, tail must also shifts;
 	}
 
-	// PRIMEIRO VERIFICO SE É FULL OU SE É NULL? A ORDEM MUDA O RESULTADO DE TESTES
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
 		if (isFull())
@@ -61,6 +63,5 @@ public class QueueImpl<T> implements Queue<T> {
 		shiftLeft();
 		return element;
 	}
-
 
 }

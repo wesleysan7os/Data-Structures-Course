@@ -44,7 +44,7 @@ public class StudentQueueTest {
 			queue2.dequeue();
 			// check if head is null at queue 1, that is empty
 			Assert.assertTrue(queue2.head() == null); 
-		} catch (QueueException e) {
+		} catch (Exception e) {
 			Assert.fail("Teste failed.");
 		}
 	}
@@ -63,7 +63,7 @@ public class StudentQueueTest {
 			queue2.dequeue(); 
 			queue2.dequeue();
 			Assert.assertTrue(queue2.isEmpty()); 
-		} catch (QueueException e) {
+		} catch (Exception e) {
 			Assert.fail("Test has failed.");
 		}			
 	}
@@ -83,7 +83,7 @@ public class StudentQueueTest {
 			
 			queue2.dequeue();
 			Assert.assertFalse(queue2.isFull());
-		} catch (QueueException e) {
+		} catch (Exception e) {
 			Assert.fail("Test has failed.");
 		}
 		
@@ -96,7 +96,7 @@ public class StudentQueueTest {
 			queue3.enqueue(2);
 			queue3.enqueue(3);
 			Assert.assertTrue(queue3.isFull());
-		} catch (QueueException e) {
+		} catch (Exception e) {
 			Assert.fail("Test has failed.");
 		}
 	}
@@ -116,7 +116,7 @@ public class StudentQueueTest {
 			
 			queue2.dequeue();
 			Assert.assertTrue(queue2.isEmpty());
-		} catch (QueueException e) {
+		} catch (Exception e) {
 			Assert.fail("Test has failed.");
 		}
 	}
@@ -125,4 +125,21 @@ public class StudentQueueTest {
 	public void testDequeueComErro() throws QueueUnderflowException {
 		queue3.dequeue();
 	}
+	
+	public void testIllegalSizes() {
+		try{
+			new QueueImpl<Integer>(0);
+			Assert.fail();
+		}catch(Exception e){
+			Assert.assertEquals("Size must be bigger than 0.", e.getMessage());
+		}
+		
+		try{
+			new QueueImpl<Integer>(-1);	
+			Assert.fail();
+		}catch(Exception e){
+			Assert.assertEquals("Size must be bigger than 0.", e.getMessage());
+		}
+	}
+	
 }
