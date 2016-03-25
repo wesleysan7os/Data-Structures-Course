@@ -13,18 +13,16 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	public void insertFirst(T element) {
 		if (element != null) {
 			
-			DoubleLinkedListNode<T> nilNode = new DoubleLinkedListNode<T>();
-			DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>(element, nilNode, nilNode);
-		
+			DoubleLinkedListNode<T> nil = new DoubleLinkedListNode<>();
+			
 			if(isEmpty()) {
-				last = newNode; 
-				setHead(last);
+				last = new DoubleLinkedListNode<T>(element, nil, nil);
+				head = last;
 			} else {
-				
-				((DoubleLinkedListNode<T>) head.next).previous = newNode;
-				newNode.next = this.head;
-				setHead(newNode);
-
+				DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>(element, nil, nil);
+				newNode.setNext(head);
+				( (DoubleLinkedListNode<T>) head).previous = newNode;
+				head = newNode;
 			}
 			size++;
 		}
@@ -32,19 +30,15 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 	@Override
 	public void removeFirst() {
-		if (!isEmpty()) {
-
-			DoubleLinkedListNode<T> nilNode = new DoubleLinkedListNode<T>();
+		if(!isEmpty()) {
 			
-			// verifies if head and last are the same reference at memory;
-			// if true, so list is unitary
-			if (this.head == this.last) {
-				this.last = new DoubleLinkedListNode<T>();
-				this.head = new DoubleLinkedListNode<T>();
+			if(size() == 1) {
+				last = new DoubleLinkedListNode<T>();
+				head = new DoubleLinkedListNode<T>();
 			} else {
-				((DoubleLinkedListNode<T>) head.next).previous = nilNode;
-				this.head = this.head.next;				
-			}			
+				( (DoubleLinkedListNode<T>) head.next).previous  = new DoubleLinkedListNode<T>();				
+				head = head.next;
+			}
 			size--;
 		}
 	}
@@ -53,90 +47,54 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	public void removeLast() {
 		if (!isEmpty()) {
 			
-			DoubleLinkedListNode<T> nilNode = new DoubleLinkedListNode<T>();
-			
-			if (this.head == this.last) {
-				this.last = nilNode;
-				this.head = nilNode;
+			if(size() == 1) {
+				last = new DoubleLinkedListNode<T>();
+				head = new DoubleLinkedListNode<T>();
 			} else {
-				this.last = this.last.previous;
-				this.last.next = nilNode; 
+				last = last.previous;
+				last.next = new DoubleLinkedListNode<T>();
 			}
-			
 			size--;
-			
 		}
-	}
-
-	/***
-	 * Iterates over List from end to begin, to take head element avoiding to cast references. 
-	 * @return the head element, as DoubleLinkedNode, if List is not Empty.
-	 */
-	public DoubleLinkedListNode<T> getHeadTypeDouble() {
-		if(!isEmpty()) {
-			
-			DoubleLinkedListNode<T> aux = last;
-			
-			while(!aux.previous.isNIL()) {
-				aux = aux.previous;
-			}
-		return aux;
-			
-		}
-		return null;
 	}
 	
 	@Override
 	public void insert(T element) {
 		if (element != null) {
-
-			DoubleLinkedListNode<T> newNode;
-			DoubleLinkedListNode<T> nilNode = new DoubleLinkedListNode<T>();
 			
-			if(isEmpty()) {
-				newNode = new DoubleLinkedListNode<T>(element, nilNode, nilNode);
-				last = newNode;
-				setHead(last);
+			if (isEmpty()) {
+				insertFirst(element);				
 			} else {
-				newNode = new DoubleLinkedListNode<T>(element, nilNode, last);
-				last.next = newNode;
+				DoubleLinkedListNode<T> next = new DoubleLinkedListNode<T>();
+				DoubleLinkedListNode<T> previous = last; 
+				DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>(element, next, previous);
+				
+				last.setNext(newNode);
 				last = newNode;
+				size++;
 			}
-			size++;
 		}
 	}
 	
 	public void remove(T element) {
-		if (element == null)
-			return;
-		
-		DoubleLinkedListNode<T> nilNode = new DoubleLinkedListNode<T>();
-		
-		if (!isEmpty()) {
+
+		if(head.getData().equals(element)) {
+			removeFirst();
+		} else if (last.getData().equals(element)) {
+			removeLast();
+		} else {
+			SingleLinkedListNode<T> aux = head;
 			
-			if (head.getData().equals(element)) {
-				removeFirst();
-			} else if (last.getData().equals(element)) {
-				removeLast();
-			} else {
-				
-				DoubleLinkedListNode<T> auxNodeNext = last;
-				DoubleLinkedListNode<T> auxNode = last.previous;
-				
-				while(!auxNode.isNIL() && !auxNode.getData().equals(element)) {
-					auxNodeNext = auxNodeNext.previous;
-					auxNode = auxNode.previous;
-				}
-				
-				if (!auxNode.isNIL()) {
-					auxNode.previous.next = auxNode.next;
-					auxNodeNext.previous = auxNode.previous;
-					size--;
-				}
+			while( !aux.isNIL() && !aux.data.equals(element)){
+				aux = aux.next;
+			}
+			
+			if (!aux.isNIL()){
+				( (DoubleLinkedListNode<T>) aux).previous.next = aux.next;
+				( (DoubleLinkedListNode<T>) aux.next).previous = ( (DoubleLinkedListNode<T>) aux).previous;
+				size--;
 			}
 		}
-		
-		
 	}
 	
 }

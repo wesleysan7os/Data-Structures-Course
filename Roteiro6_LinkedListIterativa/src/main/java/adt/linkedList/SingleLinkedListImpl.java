@@ -22,13 +22,13 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T search(T element) {
-		SingleLinkedListNode<T> aux = head;
+		SingleLinkedListNode<T> busca = head;
 		
-		while(!aux.isNIL()) { 
-			if (aux.getData().equals(element)) 
-				return aux.data;
+		while(!busca.isNIL()) { 
+			if (busca.getData().equals(element)) 
+				return busca.data;
 			else
-				aux = aux.next;
+				busca = busca.next;
 		}
 		return null;
 	}
@@ -37,8 +37,8 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public void insert(T element) {
 		if (element != null) {
 			
-			SingleLinkedListNode<T> nilNode = new SingleLinkedListNode<T>();
-			SingleLinkedListNode<T> newNode = new SingleLinkedListNode<T>(element, nilNode);
+			SingleLinkedListNode<T> nil = new SingleLinkedListNode<T>();
+			SingleLinkedListNode<T> newNode = new SingleLinkedListNode<T>(element, nil);
 		
 			if (isEmpty()) {
 				this.head = newNode;
@@ -49,8 +49,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 					aux = aux.next;
 				}
 				aux.next = newNode;
-				
-			} // end else
+			} 
 			size++;
 		}
 	}
@@ -63,7 +62,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		
 		if(!isEmpty()) {
 			
-			if(head.getData().equals(element)) {
+			if(head.data.equals(element)) {
 				head = head.next;
 				size--;
 			} else {
@@ -87,6 +86,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T[] toArray(){
+		// if list is empty, an empty array is returned instead null
 		T[] array = (T[]) new Object[] {};
 		
 		if(!isEmpty()) {
@@ -111,5 +111,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public void setHead(SingleLinkedListNode<T> head) {
 		this.head = head;
 	}
+	
+	
 		
 }

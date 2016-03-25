@@ -13,12 +13,15 @@ public class DoubleLinkedListNode<T> extends SingleLinkedListNode<T> {
 		this.previous = previous;
 	}
 	
-	public void setPrevious(DoubleLinkedListNode<T> element) {
-		this.previous = element;
+	public void setPrevious(SingleLinkedListNode<T> element) {
+		this.previous = (DoubleLinkedListNode<T>) element;
 	}
 	
 	public DoubleLinkedListNode<T> getPrevious() {
-		return this.previous;
+		if (this.previous.isNIL()) 
+			return new DoubleLinkedListNode<>();
+		else
+			return this.previous;
 	}
 	
 

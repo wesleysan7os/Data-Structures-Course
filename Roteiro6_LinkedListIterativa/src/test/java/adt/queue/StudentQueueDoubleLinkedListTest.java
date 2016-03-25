@@ -14,6 +14,8 @@ public class StudentQueueDoubleLinkedListTest {
 	public QueueDoubleLinkedListImpl<Integer> queue2;
 	public QueueDoubleLinkedListImpl<Integer> queue3;
 
+	
+	
 	@Before
 	public void setUp() throws QueueOverflowException{
 		queue1 = new QueueDoubleLinkedListImpl<Integer>(6);
@@ -50,6 +52,7 @@ public class StudentQueueDoubleLinkedListTest {
 		} catch (Exception e) {
 			Assert.fail("Teste failed.");
 		}
+		
 	}
 
 	@Test
