@@ -7,6 +7,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	
 	public DoubleLinkedListImpl() {
 		last = new DoubleLinkedListNode<T>();
+		head = last;
 	}
 	
 	@Override
@@ -17,11 +18,11 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			
 			if(isEmpty()) {
 				last = new DoubleLinkedListNode<T>(element, nil, nil);
-				head = last;
+				head = last; 
 			} else {
 				DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>(element, nil, nil);
 				newNode.setNext(head);
-				( (DoubleLinkedListNode<T>) head).previous = newNode;
+				((DoubleLinkedListNode<T>) head).setPrevious(newNode);
 				head = newNode;
 			}
 			size++;
@@ -34,10 +35,10 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			
 			if(size() == 1) {
 				last = new DoubleLinkedListNode<T>();
-				head = new DoubleLinkedListNode<T>();
+				head = last;
 			} else {
-				( (DoubleLinkedListNode<T>) head.next).previous  = new DoubleLinkedListNode<T>();				
-				head = head.next;
+				( (DoubleLinkedListNode<T>) head.next).previous  = new DoubleLinkedListNode<T>();
+				head = head.getNext();
 			}
 			size--;
 		}
@@ -49,10 +50,10 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			
 			if(size() == 1) {
 				last = new DoubleLinkedListNode<T>();
-				head = new DoubleLinkedListNode<T>();
+				head = last;
 			} else {
-				last = last.previous;
-				last.next = new DoubleLinkedListNode<T>();
+				last = last.getPrevious();
+				last.setNext(new DoubleLinkedListNode<T>());
 			}
 			size--;
 		}
@@ -83,7 +84,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 		} else if (last.getData().equals(element)) {
 			removeLast();
 		} else {
-			SingleLinkedListNode<T> aux = head;
+			SingleLinkedListNode<T> aux = getHead();
 			
 			while( !aux.isNIL() && !aux.data.equals(element)){
 				aux = aux.next;
@@ -96,5 +97,5 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 			}
 		}
 	}
-	
+		
 }
