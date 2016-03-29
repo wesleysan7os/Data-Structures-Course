@@ -1,6 +1,7 @@
 package adt.stack;
 
 import adt.linkedList.DoubleLinkedList;
+import adt.linkedList.RecursiveDoubleLinkedListImpl;
 
 public class StackRecursiveDoubleLinkedListImpl<T> implements Stack<T> {
 
@@ -9,36 +10,46 @@ public class StackRecursiveDoubleLinkedListImpl<T> implements Stack<T> {
 	
 	public StackRecursiveDoubleLinkedListImpl(int size) {
 		this.size = size;
+		list = new RecursiveDoubleLinkedListImpl<T>();
 	}
 	
+		
 	@Override
 	public void push(T element) throws StackOverflowException {
-		// TODO Auto-generated method stub
-
+		if(list.size() < size) {
+			list.insert(element);
+		} else {
+			throw new StackOverflowException();
+		}
 	}
 
 	@Override
 	public T pop() throws StackUnderflowException {
-		// TODO Auto-generated method stub
-		return null;
+		if(list.size() > 0) {
+			T result = top();
+			list.removeLast();
+			return result;
+		} else {
+			throw new StackUnderflowException();
+		}
 	}
 
 	@Override
 	public T top() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) return null;
+
+		T[] array = list.toArray();
+		return array[0];		
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return list.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		return false;
+		return size == list.size();
 	}
 
 }

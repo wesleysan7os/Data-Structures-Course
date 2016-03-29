@@ -25,7 +25,6 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 			count = 1 + next.size();
 		}
 		return count;
-		// testar se p uma lista vazia retorno eh zero
 	}
 
 	@Override
@@ -38,10 +37,11 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		} else {
 			if (data.equals(element))
 				return element;
-			else
+			else if ( next != null)
 				return next.search(element);
+			else
+				return null;
 		}
-		// testar busca de um elemento nulo
 	}
 
 	@Override
@@ -56,8 +56,6 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 			}
 			
 		}
-		// testar para quando a lista estiver vazia e formos add o primeiro elemento
-		// testar se dps de add um, dá certo add outro
 	}
 
 	@Override
@@ -70,8 +68,6 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		} else {
 			this.next.remove(element);
 		}
-		// testar remover qnd o elemento a ser removido eh o ultimo
-		// testar remover prim elemento de uma lista size 2 (verificar se dps de remover o next eh == null)
 	}
 	
 	@Override
@@ -79,7 +75,6 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		T[] array = (T[]) new Object[size()];
 		int firstIndex = 0;
 		return toArray(array, firstIndex);
-		// testar fazer um toArray, dps remover um elemento, fazer outro toArray e verificar se processa corretamente
 	}
 	
 	private T[] toArray(T[] array, int current) {
