@@ -1,0 +1,248 @@
+package adt.avltree;
+
+import adt.bst.BSTImpl;
+import adt.bst.BSTNode;
+import adt.bt.BTNode;
+
+public class AVLTreeImpl<T extends Comparable<T>> 
+    extends BSTImpl<T> implements AVLTree<T> {
+
+	//TODO Do not forget: you must override the methods insert and remove conveniently.
+
+	@Override
+	public void insert(T element) {
+		if (isEmpty() && element != null) {
+			root.setData(element);
+			root.setLeft(new BSTNode<T>());
+			root.setRight(new BSTNode<T>());
+			
+			BSTNode<T> nil = new BSTNode<T>(); // binding root to a parent
+			root.setParent(nil);			   // to avoid nullPointer
+			nil.setLeft(root);				   // when rebalance after insert
+			nil.setRight(root);				   // children of root 
+			
+			root.getLeft().setParent(root);
+			root.getRight().setParent(root);
+		} else if (element != null) {
+			insertRecursive(root, root.getParent(), element);
+		}
+	}
+	
+	private void insertRecursive(BTNode<T> node, BTNode<T> parent, T element) {
+		if (node.isEmpty()) {
+			node.setData(element);
+			node.setLeft(new BSTNode<T>());
+			node.setRight(new BSTNode<T>());
+			node.setParent(parent);
+		} else {
+			if (element.compareTo(node.getData()) < 0)
+				insertRecursive(node.getLeft(), node, element);
+			else if (element.compareTo(node.getData()) > 0)
+				insertRecursive(node.getRight(), node, element);			
+			
+			rebalance( (BSTNode<T>) node);
+		}
+	}
+
+	@Override
+	public void remove(T element) {
+		if (element != null) {
+			BSTNode<T> toRemove = search(element);
+			removeRecursive(toRemove);
+		}
+	}
+
+	private void removeRecursive(BSTNode<T>  toRemove) {
+		
+		if (toRemove == null || toRemove.isEmpty())
+			return;
+		
+		// node is leave
+		if (toRemove.getLeft().isEmpty() && toRemove.getRight().isEmpty()) {
+			becomeNil(toRemove);
+			rebalanceUp(toRemove);
+			
+		// node has one child
+		} else if (toRemove.getLeft().isEmpty() || toRemove.getRight().isEmpty()) {
+						
+			if (!toRemove.equals(root)) {
+				
+				// node is left child
+				if (toRemove.getParent().getLeft().equals(toRemove)) {
+					
+					if (!toRemove.getLeft().isEmpty()) {
+						// node.left is left child of node parent
+						toRemove.getParent().setLeft( toRemove.getLeft() );
+						toRemove.getLeft().setParent(toRemove.getParent());
+
+					} else {
+						// node.right is left child of node parent
+						toRemove.getParent().setLeft( toRemove.getRight() );
+						toRemove.getRight().setParent(toRemove.getParent());
+					}
+					
+				} else { // node is right child
+					
+					if (!toRemove.getLeft().isEmpty()) {
+						// node.left is right child of node's parent
+						toRemove.getParent().setRight( toRemove.getLeft() );
+						toRemove.getLeft().setParent(toRemove.getParent());
+					} else {
+						// node.right is right child of node's parent
+						toRemove.getParent().setRight( toRemove.getRight() );
+						toRemove.getRight().setParent(toRemove.getParent());
+					}
+				}
+			
+				rebalanceUp(toRemove);
+				
+			} else { // toRemove equals to root 
+				if (!root.getRight().isEmpty()){
+					root = (BSTNode<T>) root.getRight();
+					root.setParent(null);
+				} else {
+					root = (BSTNode<T>) root.getLeft();
+					root.setParent(null);
+				}
+			}
+			
+		// 	recursive step
+		} else {
+			BSTNode<T> sucessor = sucessor(toRemove.getData());
+			T sucessorData = sucessor.getData();
+			removeRecursive(sucessor);
+			toRemove.setData( sucessorData );
+		}
+	}		
+	
+	//AUXILIARY
+	public int calculateBalance(BSTNode<T> node){
+		if (node == null)
+			return 0;
+		
+		return height(node.getLeft()) - height(node.getRight());
+	}
+	
+	protected int height(BTNode<T> btNode) {	
+		if (btNode.isEmpty()) {
+			return -1;
+		} else {
+			int heightLeft = height(btNode.getLeft());
+			int heightRight = height(btNode.getRight());
+			
+			if (heightLeft > heightRight)
+				return 1 + heightLeft;
+			else 
+				return 1 + heightRight;
+		}
+	}
+	
+	public boolean isLeftPending(BSTNode<T> node) {
+		if (calculateBalance(node) >= 1)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isRightPending(BSTNode<T> node) {
+		if (calculateBalance(node) <= -1)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isLeftDesbalanced(BSTNode<T> node) {
+		if (calculateBalance(node) > 1)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isRightDesbalanced(BSTNode<T> node) {
+		if (calculateBalance(node) < -1)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isDesbalanced(BSTNode<T>node) {
+		if (calculateBalance(node) < -1 || calculateBalance(node) > 1)
+			return true;
+		else
+			return false;
+	}
+	
+	//AUXILIARY
+	protected void rebalance(BSTNode<T> node){
+		BSTNode<T> parent = (BSTNode<T>) node.getParent();
+		BSTNode<T> grand = (BSTNode<T>) parent.getParent();
+		
+		if (isLeftDesbalanced(grand) && parent.getLeft().equals(node)) {
+			rightRotation(node);
+		} else
+		if (isRightDesbalanced(grand) && parent.getRight().equals(node)) {
+			leftRotation(node);
+		} else
+		if (isDesbalanced(grand) && grand.getRight().equals(parent) && parent.getLeft().equals(node)) {
+			rightRotation(node.getLeft());
+			leftRotation(node);
+		} else
+		if (isDesbalanced(grand) && grand.getLeft().equals(parent) && parent.getRight().equals(node)) {
+			leftRotation(node.getRight());
+			rightRotation(parent);
+		}
+	}
+	
+	//AUXILIARY
+	protected void rebalanceUp(BSTNode<T> node){
+		BSTNode<T> parent = (BSTNode<T>) node.getParent();
+		while (parent != null) {
+			rebalance((BSTNode<T>) parent);
+			parent = (BSTNode<T>) parent.getParent();
+		}
+	}
+	
+	//AUXILIARY
+	protected void leftRotation(BTNode<T> node){
+		BTNode<T> y = node.getRight();
+		
+		node.setRight(y.getLeft());
+		y.getLeft().setParent(node);
+		
+		y.setLeft(node);
+		
+		y.setParent(node.getParent());
+		node.setParent(y);
+		
+		if(node != root) {
+			if(y.getParent().getLeft() == node)
+				y.getParent().setLeft(y);
+			else
+				y.getParent().setRight(y);
+		}
+		else root = (BSTNode<T>) y;
+	}
+	
+	//AUXILIARY
+	protected void rightRotation(BTNode<T> node){
+		BTNode<T> y = node.getLeft();
+		
+		node.setLeft(y.getRight());
+		y.getRight().setParent(node);
+		
+		y.setRight(node);
+		
+		y.setParent(node.getParent());
+		node.setParent(y);
+		
+		if(node != root) {
+			if(y.getParent().getLeft() == node)
+				y.getParent().setLeft(y);
+			else
+				y.getParent().setRight(y);
+		}
+		else root = (BSTNode<T>) y;
+		
+	}
+	
+}
