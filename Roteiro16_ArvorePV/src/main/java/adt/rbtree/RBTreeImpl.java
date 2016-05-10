@@ -28,10 +28,10 @@ public class RBTreeImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 		} else {
 				if (node.getColour() == Colour.BLACK)
 					return 1 + Math.max(blackHeight((RBNode<T>) node.getLeft()),
-										blackHeight((RBNode<T>) node.getRight()));
+							    blackHeight((RBNode<T>) node.getRight()));
 				else
 					return Math.max(blackHeight((RBNode<T>) node.getLeft()),
-									blackHeight((RBNode<T>) node.getRight()));
+							blackHeight((RBNode<T>) node.getRight()));
 		}
 	}
 
