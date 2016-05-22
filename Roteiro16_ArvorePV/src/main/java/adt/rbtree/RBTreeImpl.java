@@ -113,6 +113,8 @@ public class RBTreeImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 			
 			root.getLeft().setParent(root);
 			root.getRight().setParent(root);
+			
+			root.setColour(Colour.BLACK);
 		} else if (value.compareTo(root.getData()) < 0) {
 			insert(value, (RBNode<T>) root.getLeft());
 		} else if (value.compareTo(root.getData()) > 0) {
