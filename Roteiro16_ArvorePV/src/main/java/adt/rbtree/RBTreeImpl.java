@@ -196,14 +196,15 @@ public class RBTreeImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 		RBNode<T> next = node;
 		
 		if (isLeftChild(node)
-			&& isRightChild((RBNode<T>) node.getParent())) {
+		    && isRightChild((RBNode<T>) node.getParent())) {
 			
 			rightRotation((RBNode<T>) node.getParent());
 			next = (RBNode<T>) node.getRight();
 			
-		}
-		else if (isRightChild(node)
-			 && isLeftChild((RBNode<T>) node.getParent()) ) {
+		} else
+		
+		if (isRightChild(node)
+		    && isLeftChild((RBNode<T>) node.getParent()) ) {
 			
 			leftRotation((RBNode<T>) node.getParent());
 			next = (RBNode<T>) node.getLeft();
